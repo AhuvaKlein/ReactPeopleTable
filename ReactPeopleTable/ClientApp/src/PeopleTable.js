@@ -14,6 +14,7 @@ export default class PeopleTable extends React.Component {
                             <th>Last Name</th>
                             <th>Age</th>
                             <th>Delete</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,6 +26,9 @@ export default class PeopleTable extends React.Component {
                                 <td><button 
                                 onClick={() => { this.props.deleteClick(idx) }} 
                                 className='btn btn-danger'>Delete</button></td>
+                                <td><button 
+                                onClick={() => { this.props.editClick(idx) }} 
+                                className='btn btn-info'>Edit</button></td>
                             </tr>)
                         })}
                     </tbody>

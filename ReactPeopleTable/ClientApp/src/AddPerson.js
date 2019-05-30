@@ -13,6 +13,8 @@ export default class AddPerson extends React.Component {
                 <div className='col-md-4'>
                     <button className='btn btn-warning' onClick={this.props.addPerson}>Add Person</button>
                     <br />
+                    <button className='btn btn-default' onClick={this.props.editPerson} >Submit Edit</button>
+                    <br />
                     <button className='btn btn-primary' onClick={this.props.clear} >Clear Textboxes</button>
                     <br />
                     <button className='btn btn-success' onClick={this.props.clearTable} >Clear Table</button>
