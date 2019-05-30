@@ -13,10 +13,7 @@ class App extends React.Component {
     };
 
     clear = () => {
-        this.setState({ firstName: '' });
-        this.setState({ lastName: '' });
-        this.setState({ age: '' });
-
+        this.setState({ firstName: '', lastName: '', age: '' });
     }
 
     clearTable = () => {
@@ -28,8 +25,7 @@ class App extends React.Component {
         const { firstName, lastName, age } = this.state;
         const person = { firstName, lastName, age };
         peopleCopy.push(person);
-        this.setState({ people: peopleCopy }, () => { console.log(this.state.people) });
-
+        this.setState({ people: peopleCopy });
         this.clear();
     }
 
@@ -45,6 +41,12 @@ class App extends React.Component {
         this.setState({ age: e.target.value })
     }
 
+    deleteClick = idx => {
+        const copyArray = [...this.state.people];
+        copyArray.splice(idx, 1);
+        this.setState({people: copyArray});
+    }
+
     render() {
         return (
             <div className="container" style={{ marginTop: 40 }}>
@@ -53,12 +55,10 @@ class App extends React.Component {
                     firstNameChange={this.firstNameChange} lastNameChange={this.lastNameChange} ageChange={this.ageChange}
                     clearTable={this.clearTable} />
                 <br />
-                <PeopleTable people={this.state.people} />
+                <PeopleTable people={this.state.people} deleteClick={this.deleteClick} />
             </div>
         )
     }
-
-
 }
 
 render(<App />, document.getElementById('root'));
