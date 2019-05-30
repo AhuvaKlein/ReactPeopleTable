@@ -1,19 +1,64 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
-import './index.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { render } from 'react-dom';
+import AddPerson from './AddPerson';
+import PeopleTable from './PeopleTable';
 
-const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
-const rootElement = document.getElementById('root');
+class App extends React.Component {
 
-ReactDOM.render(
-  <BrowserRouter basename={baseUrl}>
-    <App />
-  </BrowserRouter>,
-  rootElement);
+    state = {
+        people: [],
+        firstName: '',
+        lastName: '',
+        age: ''
+    };
 
-registerServiceWorker();
+    clear = () => {
+        this.setState({ firstName: '' });
+        this.setState({ lastName: '' });
+        this.setState({ age: '' });
+
+    }
+
+    clearTable = () => {
+        this.setState({ people: [] });
+    }
+
+    addPersonClick = () => {
+        const peopleCopy = [...this.state.people];
+        const { firstName, lastName, age } = this.state;
+        const person = { firstName, lastName, age };
+        peopleCopy.push(person);
+        this.setState({ people: peopleCopy }, () => { console.log(this.state.people) });
+
+        this.clear();
+    }
+
+    firstNameChange = e => {
+        this.setState({ firstName: e.target.value })
+    }
+
+    lastNameChange = e => {
+        this.setState({ lastName: e.target.value })
+    }
+
+    ageChange = e => {
+        this.setState({ age: e.target.value })
+    }
+
+    render() {
+        return (
+            <div className="container" style={{ marginTop: 40 }}>
+                <AddPerson firstName={this.state.firstName} lastName={this.state.lastName} age={this.state.age}
+                    addPerson={this.addPersonClick} clear={this.clear}
+                    firstNameChange={this.firstNameChange} lastNameChange={this.lastNameChange} ageChange={this.ageChange}
+                    clearTable={this.clearTable} />
+                <br />
+                <PeopleTable people={this.state.people} />
+            </div>
+        )
+    }
+
+
+}
+
+render(<App />, document.getElementById('root'));
