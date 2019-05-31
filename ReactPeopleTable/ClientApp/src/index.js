@@ -48,6 +48,7 @@ class App extends React.Component {
         this.setState({ people: copyArray });
     }
 
+    //prefills text boxes
     editClick = idx => {
         const { firstName, lastName, age } = this.state.people[idx];
         console.log(idx);
@@ -58,7 +59,8 @@ class App extends React.Component {
         const peopleCopy = [...this.state.people];
         const { firstName, lastName, age } = this.state;
         const person = { firstName, lastName, age };
-        peopleCopy.splice(this.state.personIndex, 1, person);
+        //peopleCopy.splice(this.state.personIndex, 1, person);
+        peopleCopy[this.state.personIndex] = person;
         this.setState({ people: peopleCopy });
         this.clear();
     }
